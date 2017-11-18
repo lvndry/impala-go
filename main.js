@@ -1,7 +1,9 @@
 const electron = require('electron');
 const path = require('path');
 const url = require('url');
-
+const shell = require('shelljs');
+      shell.config.execPath = '/usr/bin/node' || process.argv[0]
+      
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const ipc = electron.ipcMain;
@@ -9,6 +11,7 @@ const ipc = electron.ipcMain;
 let mainWindow
 
 process.env.NODE_ENV = 'dev';
+shell.exec("git config credential.helper store");
 
 function createWindow() {
   mainWindow = new BrowserWindow({width: 800, height: 600, icon: __dirname + '/assets/icon/impa_logo_64.png'})
