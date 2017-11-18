@@ -142,7 +142,7 @@
     <script type="text/javascript">
       const {dialog} = require('electron').remote;
 
-      let cmd = "goreleaser -f ";
+      let cmd = "goreleaser --snapshot";
       let dir;
       let gitexport = "export GITHUB_TOKEN='";
       let path;
@@ -185,6 +185,7 @@
         else{
             gitexport += $("#gt").val()  + "'"
             shell.exec(gitexport);
+            console.log(gitexport)
             gitexport = "export GITHUB_TOKEN='";
         }
 
@@ -205,11 +206,12 @@
         }
 
         makeGoreleaser(projectName, path, settings);
-        cmd += path +  "/.goreleaser.yml";
-        console.log(cmd);
-        shell.exec(cmd);
-        cmd ="goreleaser -f "
-        //0e2f282e0f249750be97df3c1d76eaf8be47a2ab
+        let commit = "cd " + path + " && git add . " + "&& git commit -m 'impala release' | goreleaser --snapshot";
+        shell.exec(commit);
+
+        console.log(commit);
+        cmd = "goreleaser --snapshot";
+        
       })
 
     </script>
