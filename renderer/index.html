@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Impala</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+    <link rel="stylesheet" type="text/css" href="../assets/style/index.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>if (typeof module === 'object'){window.module = module; module = undefined;}</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>if (window.module) module = window.module;</script>
+
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container field has-text-centered">
+          <div class="top">
+            <h1 class="title is-1">Impala</h1>
+            <h1 class="subltitle is-1">Let's build</h1>
+          </div>
+          <div class="cl control field has-text-centered">
+            <div class="select is-medium is-hidden">
+              <select id="selectl" class="l" name="language">
+                <option value="Go" selected hidden>Go</option>
+              </select>
+            </div>
+            <button class="button is-medium" type="submit" name="choosedl">Let's go!</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <script type="text/javascript">
+      const electron = require('electron');
+      const ipc = electron.ipcRenderer;
+      
+      var language;
+      var select = document.getElementById('selectl');
+      var submit = document.querySelector('button');
+    
+      submit.addEventListener('click', function(e){
+        e.preventDefault();
+        language = select.options[select.selectedIndex].value;
+        console.log(language);
+        ipc.send('compile:language', language);
+      });
+    </script>
+  </body>
+</html>

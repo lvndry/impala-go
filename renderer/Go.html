@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Go Impala</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+
+    <script type="text/javascript" src="../script/goreleaser.js"></script>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>if (window.module) module = window.module;</script>
+  </head>
+
+  <body>
+    <section class="section">
+
+      <nav class="level">
+         <div class="level-left">
+         <div class="level-item" id="bm">
+          <a class="home" href="#"> ← Back </a>
+        </div>
+        </div>
+        <div class="level-item has-text-center">
+          <h1 class="title">Go build</h1>
+        </div>
+      </nav>
+
+      <div class="box">
+        <div class="container">
+          <div class="level">
+            <div class="file has-name level-item">
+              <label class="file-label">
+                <input class="file-input" id="d2b" type="file" name="d2b" webkitdirectory>
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fa fa-upload"></i>
+                  </span>
+                  <span class="file-label has-text-centered">
+                    Select the main file…
+                  </span>
+                </span>
+                <input class="file-name" id="pn" placeholder="Project Name...">
+              </label>
+            </div>
+
+            <div class="makefile level-item">
+              <label>
+                <input id="gm" type="checkbox" name="gm" checked>
+                <span>Generate a goreleaser</span>
+              </label>
+            </div>
+            <button class="button" id="bb" type="button" name="button">Build</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div id="gtd" class="container">
+          <div class="file has-name level-item">
+            <label class="file-label">
+              <span class="file-cta">
+                <span class="file-label has-text-centered">
+                  Github token
+                </span>
+              </span>
+              <input class="input" id="gt" placeholder="xxxxxxxxxxxxxxxxxxxxxxxx" required>
+            </label>
+          </div>
+        </div>
+     </div>
+
+      <div class="box">
+        <div class="container">
+          <div class="level">
+            <div class="level-item">
+              <dl class="">
+                <dt>
+                  <a href="#"><span>GOOS</span></a>
+                </dt>
+                <dd>
+                  <ul>
+                    <li><input name="goos" type="checkbox" value="android" />Android</li>
+                    <li><input name="goos" type="checkbox" value="darwin" />Darwin</li>
+                    <li><input name="goos" type="checkbox" value="freebsd" />Free BSD</li>
+                    <li><input name="goos" type="checkbox" value="linux" />Linux</li>
+                    <li><input name="goos" type="checkbox" value="windows" />Windows</li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+
+            <div class="level-item">
+              <dl class="">
+                <dt>
+                  <a href="#"><span>GOARCH</span></a>
+                </dt>
+                <dd>
+                  <div>
+                    <ul>
+                      <li><input name="goarch" type="checkbox" value="amd64" />Amd</li>
+                      <li><input name="goarch" type="checkbox" value="arm" />Arm</li>
+                      <li><input name="goarch" type="checkbox" value="Windows" />Arm64</li>
+                    </ul>
+                  </div>
+                </dd>
+              </dl>
+            </div>
+
+            <div class="level-item">
+              <dl>
+                <dt>
+                  <a href="#"><span>ARCHIVE</span></a>
+                </dt>
+                <dd>
+                  <div id="af">
+                    <ul>
+                      <li><input name="archive" type="checkbox" value="tar.gz" />tar.gz</li>
+                      <li><input name="archive" type="checkbox" value="zip" />zip</li>
+                      <li><input name="archive" type="checkbox" value="gzip" />gzip</li>
+                    </ul>
+                  </div>
+                </dd>
+              </dl>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="hero is-danger is-large has-text-left">
+        <div class="hero-body">
+          <div class="errors container" id="gcc_errors">
+            <h4 class="title is-1">Errors</h4>
+          </div>
+          <div id="gcc_errors_content"> </div>
+       </div>
+      </div>
+    </section>
+
+    <script type="text/javascript">
+      const {dialog} = require('electron').remote;
+
+      let cmd = "goreleaser -f ";
+      let dir;
+      let gitexport = "export GITHUB_TOKEN='";
+      let path;
+      let projectName;
+      let settings = {
+        "build":{
+          'goos': [],
+          'goarch': []
+        },
+        "archive":{
+          "wanted": false,
+          "format": ""
+        }
+      };
+
+      $('#d2b').on('click', function(e){
+        e.preventDefault();
+        path = dialog.showOpenDialog({
+          properties: ['openDirectory']
+        })
+        console.log(path);
+      })
+
+      $("input[name='archive']").click(function(){
+        if($(this).is(":checked")){
+          $("input[name='archive']").prop("checked", false);
+          $(this).prop("checked", true);
+        }
+      });
+
+      $("#bb").click(function(){
+        //@TODO find a better to initialize the values
+        settings = { "build":{ 'goos': [], 'goarch': []},"archive":{"wanted": false,"format": ""}};
+
+        if(!$("#gt").val()){
+          $("#gt").addClass("is-danger");
+          $("#gtd").append("<p class='help is-danger'>The github token is required</p>");
+          return ;
+        }
+        else{
+            gitexport += $("#gt").val()  + "'"
+            shell.exec(gitexport);
+            gitexport = "export GITHUB_TOKEN='";
+        }
+
+        projectName = ($("#pn").val()) ? $("#pn").val() : 'impala';
+
+        $("input[name='goos']:checked").each(function(){
+          settings['build']['goos'].push($(this).val());
+        });
+
+        $("input[name='goarch']:checked").each(function(){
+          settings['build']['goarch'].push($(this).val());
+        });
+
+        settings['archive']['format'] = $("input[name='archive']:checked").val();
+
+        if(settings['archive']['format'] !== 'undefined'){
+          settings['archive']['wanted'] = true;
+        }
+
+        makeGoreleaser(projectName, path, settings);
+        cmd += path +  "/.goreleaser.yml";
+        console.log(cmd);
+        shell.exec(cmd);
+        cmd ="goreleaser -f "
+        //0e2f282e0f249750be97df3c1d76eaf8be47a2ab
+      })
+
+    </script>
+  </body>
+</html>

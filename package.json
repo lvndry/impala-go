@@ -1,0 +1,18 @@
+{
+  "name": "impala",
+  "version": "0.0.1",
+  "description": "\"Best tool to build, test and release your go project\"",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "impala",
+    "go"
+  ],
+  "author": "LVNDRY (Landry Monga)",
+  "license": "ISC",
+  "dependencies": {
+    "shelljs": "^0.7.8"
+  }
+}
