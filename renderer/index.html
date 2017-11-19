@@ -21,7 +21,7 @@
         <div class="container field has-text-centered">
           <div class="top">
             <h1 class="title is-1">Impala</h1>
-            <h1 class="subltitle is-1">Let's build</h1>
+            <h1 class="subltitle is-1">Build, release and share</h1>
           </div>
           <div class="cl control field has-text-centered">
             <div class="select is-medium is-hidden">
@@ -34,19 +34,18 @@
         </div>
       </div>
     </section>
-  
+
     <script type="text/javascript">
       const electron = require('electron');
       const ipc = electron.ipcRenderer;
-      
+
       var language;
       var select = document.getElementById('selectl');
       var submit = document.querySelector('button');
-    
+
       submit.addEventListener('click', function(e){
         e.preventDefault();
         language = select.options[select.selectedIndex].value;
-        console.log(language);
         ipc.send('compile:language', language);
       });
     </script>

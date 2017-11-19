@@ -30,7 +30,7 @@
       <div class="box">
         <div class="container">
           <div class="level">
-            <div class="file has-name level-item">
+            <div id="did" class="file has-name level-item">
               <label class="file-label">
                 <input class="file-input" id="d2b" type="file" name="d2b" webkitdirectory>
                 <span class="file-cta">
@@ -38,7 +38,7 @@
                     <i class="fa fa-upload"></i>
                   </span>
                   <span class="file-label has-text-centered">
-                    Select the main file…
+                    Select the directory ...
                   </span>
                 </span>
                 <input class="file-name" id="pn" placeholder="Project Name...">
@@ -129,6 +129,22 @@
         </div>
       </div>
 
+      <div class="box">
+        <div class="container">
+          <div class="level">
+            Git tag
+            <label for="version">Version</label>
+            <div class="level-item control">
+            <input class="input" type="text" name="version">
+            </div>
+            <label for="tag_message">Message</label>
+            <div class="level-item control">
+            <input class="input "type="text" name="tag_message">
+            </div>
+          </div>
+         </div>
+      </div>
+
       <div class="hero is-danger is-large has-text-left">
         <div class="hero-body">
           <div class="errors container" id="gcc_errors">
@@ -144,9 +160,10 @@
 
       let cmd;
       let dir;
-      let gitexport = "export GITHUB_TOKEN='";
+      let git_token;
       let path;
       let projectName;
+      let message = "First release"
       let settings = {
         "build":{
           'goos': [],
@@ -157,13 +174,14 @@
           "format": ""
         }
       };
+      let tag_message;
+      let tag_version;
 
       $('#d2b').on('click', function(e){
         e.preventDefault();
         path = dialog.showOpenDialog({
           properties: ['openDirectory']
         })
-        console.log(path);
       })
 
       $("input[name='archive']").click(function(){
@@ -175,7 +193,10 @@
 
       $("#bb").click(function(){
         //@TODO find a better to initialize the values
-        settings = { "build":{ 'goos': [], 'goarch': []},"archive":{"wanted": false,"format": ""}};
+        settings = { "build":{ "goos": [], "goarch": []},"archive":{"wanted": false, "format": ""}};
+
+        let logpath = path + '/logs'
+        shell.mkdir(logpath)
 
         if(!$("#gt").val()){
           $("#gt").addClass("is-danger");
@@ -183,10 +204,8 @@
           return ;
         }
         else{
-            gitexport += $("#gt").val()  + "'"
-            shell.exec(gitexport);
-            console.log(gitexport)
-            gitexport = "export GITHUB_TOKEN='";
+            git_token = $("#gt").val
+            process.env.GITHUB_TOKEN = git_token;
         }
 
         projectName = ($("#pn").val()) ? $("#pn").val() : 'impala';
@@ -206,10 +225,13 @@
         }
 
         makeGoreleaser(projectName, path, settings);
-        cmd = "cd " + path + " && git add . " + "&& git commit -m 'update repo' | goreleaser --snapshot && git add . && git commit -m 'goreleaser builds' && git push";
+        tag_message = $("input[name='tag_message']").val();
+        tag_version = $("input[name='version']").val();
+        let elogs = path + "/logs/goreleaser_errors.log";
+        let logs = path + "/logs/impala_log.log";
+        cmd = "cd " + path + " && git add . && git commit -m 'commit before release' && git tag -a " + tag_version + " -m '"  + tag_message + "' && goreleaser --rm-dist 2>" + elogs + " > " + logs  + " && git add . && git commit -m 'goreleaser builds' && git push"
         shell.exec(cmd);
       })
-      //0e2f282e0f249750be97df3c1d76eaf8be47a2ab
     </script>
   </body>
 </html>
