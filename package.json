@@ -1,6 +1,6 @@
 {
   "name": "impala",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "\"Best tool to build, test and release your go project\"",
   "main": "main.js",
   "scripts": {

@@ -1,13 +1,13 @@
 let shell = require('shelljs')
     shell.config.execPath = '/usr/bin/node' || process.argv[0]
 
-function makeGoreleaser(projectName, dirPath, settings, callback=""){
+function makeGoreleaser(settings, callback=""){
 
   let cmd = "printf '"
       cmd += "# goreleaser.yml\n"
       cmd += "# Build Customisation\n"
       cmd += "builds:\n"
-      cmd += " - binary: " + projectName + "\n";
+      cmd += " - binary: " + settings['name'] + "\n";
       cmd += "   goos: \n";
 
       for(let i = 0, len = settings['build']['goos'].length; i < len; i++){
@@ -28,7 +28,7 @@ function makeGoreleaser(projectName, dirPath, settings, callback=""){
         cmd += " name_template: \"{{ .Binary }}_{{ .Os }}_{{ .Arch }}\"\n"
       }
 
-      cmd += "' >" + dirPath  + "/.goreleaser.yml"
+      cmd += "' >" + settings['path']  + "/.goreleaser.yml"
       console.log(cmd);
       shell.exec(cmd);
 }
