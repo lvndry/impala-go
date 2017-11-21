@@ -1,18 +1,47 @@
 {
   "name": "impala",
   "version": "0.1.0",
-  "description": "\"Best tool to build, test and release your go project\"",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "impala",
-    "go"
-  ],
+  "description": "\"Tool to build, test and release your go project\"",
   "author": "LVNDRY (Landry Monga)",
   "license": "ISC",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lvndry/Impala.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack-linux-ia32": "electron-packager . --package-manager=yarn --asar --overwrite --platform=linux --arch=ia32 --icon=assets/icon/impa_logo_64.png --prune=true --out=build",
+    "pack-linux-x64": "electron-packager . --package-manager=yarn --asar --overwrite --platform=linux --arch=x64 --icon=assets/icon/impa_logo_64.png --prune=true --out=build",
+    "pack-win32-ia32": "electron-packager . --package-manager=yarn --asar  --overwrite --platform=win32 --arch=ia32 --icon=assets/icon/impa_logo_64.ico --prune=true --out=build --version-string.ProductName='impala'",
+    "pack-win32-x64": "electron-packager . --package-manager=yarn --asar  --overwrite --platform=win32 --arch=x64 --icon=assets/icon/impa_logo_64.ico --prune=true --out=build --version-string.ProductName='impala'",
+    "pack-mac": "electron-packager . --package-manager=yarn --asar --overwrite --platform=darwin --arch=x64 --icon=assets/icon/impa_logo_64.icns --prune=true --out=build",
+    "package": "npm run pack-linux-ia32 && npm run pack-linux-x64 && npm run pack-win32-ia32 && npm run pack-win32-x64 && npm run pack-mac"
+  },
+  "bin": {
+    "impala": "./bin/impala.js"
+  },
   "dependencies": {
+    "bulma": "^0.6.1",
+    "exec-sh": "^0.2.1",
+    "gcc": "^1.0.2",
     "shelljs": "^0.7.8"
+  },
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "^1.7.9",
+    "electron-builder": "^19.45.4",
+    "electron-packager": "^8.7.2",
+    "spectron": "^3.7.2"
+  },
+  "keywords": [
+    "cross-compilation",
+    "compilation",
+    "electron",
+    "impala",
+    "tool"
+  ],
+  "bugs": {
+    "url": "https://github.com/lvndry/Impala/issues"
   }
 }

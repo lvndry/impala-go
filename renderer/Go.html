@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>Go Impala</title>
 
+    <link rel="stylesheet" href="../assets/style/go.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
 
     <script type="text/javascript" src="../script/goreleaser.js"></script>
@@ -81,12 +82,12 @@
                 </dt>
                 <dd>
                   <ul>
-                    <li><label><input name="goos" type="checkbox" value="android" />Android</label></li>
-                    <li><label><input name="goos" type="checkbox" value="darwin" />Darwin</label></li>
-                    <li><label><input name="goos" type="checkbox" value="freebsd" />Free BSD</label></li>
-                    <li><label><input name="goos" type="checkbox" value="linux" />Linux</label></li>
-                    <li><label><input name="goos" type="checkbox" value="solaris" />Solaris</label></li>
-                    <li><label><input name="goos" type="checkbox" value="windows" />Windows</label></li>
+                    <li><input name="goos" type="checkbox" value="android" /><label>Android</label></li>
+                    <li><input name="goos" type="checkbox" value="darwin" /><label>Darwin</label></li>
+                    <li><input name="goos" type="checkbox" value="freebsd" /><label>Free BSD</label></li>
+                    <li><input name="goos" type="checkbox" value="linux" /><label>Linux</label></li>
+                    <li><input name="goos" type="checkbox" value="solaris" /><label>Solaris</label></li>
+                    <li><input name="goos" type="checkbox" value="windows" /><label>Windows</label></li>
                   </ul>
                 </dd>
               </dl>
@@ -100,10 +101,10 @@
                 <dd>
                   <div>
                     <ul>
-                      <li><label><input name="goarch" type="checkbox" value="386" />386</label></li>
-                      <li><label><input name="goarch" type="checkbox" value="amd64" />AMD</label></li>
-                      <li><label><input name="goarch" type="checkbox" value="arm" />ARM</label></li>
-                      <li><label><input name="goarch" type="checkbox" value="arm64" />ARM64</label></li>
+                      <li><input name="goarch" type="checkbox" value="386" /><label>386</label></li>
+                      <li><input name="goarch" type="checkbox" value="amd64" /><label>AMD</label></li>
+                      <li><input name="goarch" type="checkbox" value="arm" /><label>ARM</label></li>
+                      <li><input name="goarch" type="checkbox" value="arm64" /><label>ARM64</label></li>
                     </ul>
                   </div>
                 </dd>
@@ -118,9 +119,9 @@
                 <dd>
                   <div id="af">
                     <ul>
-                      <li><label><input name="archive" type="checkbox" value="tar.gz" />tar.gz</label></li>
-                      <li><label><input name="archive" type="checkbox" value="zip" />zip</label><li>
-                      <li><label><input name="archive" type="checkbox" value="gzip" />gzip</label></li>
+                      <li><input name="archive" type="checkbox" value="tar.gz" /><label>tar.gz</label></li>
+                      <li><input name="archive" type="checkbox" value="zip" /><label>zip</label><li>
+                      <li><input name="archive" type="checkbox" value="gzip" /><label>gzip</label></li>
                     </ul>
                   </div>
                 </dd>
@@ -133,7 +134,7 @@
 
       <div class="box">
         <div class="container">
-          <div class="level">
+          <div class="level gtag">
             Git tag
             <div class="level-item">
               <label for="version">Version</label>
@@ -177,7 +178,6 @@
         "solaris": ["amd64"],
         "windows": ["386", "amd64"]
       };
-
       let dir;
       let elogs;
       let git_token;
@@ -212,38 +212,37 @@
         });
 
         if(Object.keys(combinaisons).indexOf(value) !== -1){
-            let checkedOs = [];
-            $("input[name='goos']:checked").each(function(){
-              checkedOs.push($(this).val());
+          let checkedOs = [];
+          $("input[name='goos']:checked").each(function(){
+            checkedOs.push($(this).val());
+          });
+
+          for(let i = 0, clen = checkedOs.length; i < clen; i++){
+            $("input[name='goarch']").each(function(){
+              let name = $(this).val();
+              if(combinaisons[checkedOs[i]].indexOf(name) === -1){
+                  $(this).prop("disabled", true);
+              }
             });
-
-            for(let i = 0, clen = checkedOs.length; i < clen; i++){
-              $("input[name='goarch']").each(function(){
-                let name = $(this).val();
-                if(combinaisons[checkedOs[i]].indexOf(name) === -1){
-                    $(this).prop("disabled", true);
-                }
-              });
-            }
           }
-
-          else{
-            let checkedArch = [];
-            $("input[name='goarch']:checked").each(function(){
-              checkedArch.push($(this).val())
-            });
-
-            for(let i = 0, clen = checkedArch.length; i < clen; i++){
-              $("input[name='goos']").each(function(){
-                let name = $(this).val();
-                if(combinaisons[name].indexOf(checkedArch[i]) === -1){
-                    $(this).prop("disabled", true);
-                }
-              });
-            }
-          }
-
         }
+
+        else{
+          let checkedArch = [];
+          $("input[name='goarch']:checked").each(function(){
+            checkedArch.push($(this).val())
+          });
+
+          for(let i = 0, clen = checkedArch.length; i < clen; i++){
+            $("input[name='goos']").each(function(){
+              let name = $(this).val();
+              if(combinaisons[name].indexOf(checkedArch[i]) === -1){
+                  $(this).prop("disabled", true);
+              }
+            });
+          }
+        }
+      }
 
       $('#d2b').on('click', function(e){
         e.preventDefault();
@@ -251,7 +250,7 @@
           properties: ['openDirectory']
         })
         settings['path'] = path;
-      })
+      });
 
       $("input[name='goos']").click(function(e){
         combine(e.currentTarget.value);
@@ -332,6 +331,8 @@
           $("#gr_errors").html(errs);
         });
       }
+      
     </script>
   </body>
 </html>
+<!-- TODO: Log des erreurs, token non obilgatoire et goreleaser a dev -->
