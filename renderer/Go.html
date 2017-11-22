@@ -49,7 +49,7 @@
                     Select the directory ...
                   </span>
                 </span>
-                <input class="file-name" id="pn" placeholder="Project Name...">
+                <input class="file-name" id="pn" placeholder="Project name(default: impala)">
               </label>
           </div>
 
@@ -313,17 +313,21 @@
         settings['archive']['wanted'] = true;
       }
 
-      makeGoreleaser(settings);
-
       tag_version = "v" + $("input[name='version']").val();
       tag_message = $("input[name='tag_message']").val();
 
       elogs = path + "/logs/goreleaser_errors.log";
       logs = path + "/logs/impala_log.log";
 
-      cmd = "cd " + path + " && git add . && git commit -m 'commit before release' && git push "
-      cmd += "&& git tag -a " + tag_version + " -m '" + tag_message + "' "
+      cmd = "cd " + path + " && ";
+
+      if(shell.exec('cd ' + path + ' && git status | grep "clean"') !== "")
+        cmd += "git add . && git commit -m 'commit before release' && git push && "
+
+      cmd += "git tag -a " + tag_version + " -m '" + tag_message + "' "
       cmd += "&& goreleaser --rm-dist && git add . && git commit -m 'goreleaser builds' && git push"
+
+      makeGoreleaser(settings);
       shell.exec(cmd);
       //printLogs(logs);
     })

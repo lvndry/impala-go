@@ -62,7 +62,6 @@ function makeGoreleaser(settings, callback=""){
       cmd += "checksum:\n"
       cmd += " name_template: \"{{ .ProjectName }}_checksum.txt\""
       cmd += "' > " + settings['path']  + "/.goreleaser.yml"
-      //console.log(settings['path']);
       console.log(cmd);
       shell.exec(cmd);
 }
