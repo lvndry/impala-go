@@ -1,3 +1,4 @@
-*.out
 package-lock.json
-temp
+.sass-cache
+temp/
+node_modules

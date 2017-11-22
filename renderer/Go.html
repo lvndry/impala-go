@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <title>Go Impala</title>
+<head>
+  <meta charset="utf-8">
+  <title>Go Impala</title>
 
-    <link rel="stylesheet" href="../assets/style/go.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+  <link rel="stylesheet" href="../assets/style/go.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
 
-    <script type="text/javascript" src="../script/goreleaser.js"></script>
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script>if (window.module) module = window.module;</script>
-  </head>
+  <script type="text/javascript" src="../script/goreleaser.js"></script>
+  <script>
+    if (typeof module === 'object') {
+      window.module = module;
+      module = undefined;
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script>
+    if (window.module) module = window.module;
+  </script>
+</head>
 
-  <body>
-    <section class="section">
+<body>
+  <section class="section">
 
-      <nav class="level">
-         <div class="level-left">
-         <div class="level-item" id="bm">
+    <nav class="level">
+      <div class="level-left">
+        <div class="level-item" id="bm">
           <a class="home" href="#"> ← Back </a>
         </div>
-        </div>
-        <div class="level-item has-text-center">
-          <h1 class="title">Go build</h1>
-        </div>
-      </nav>
+      </div>
+      <div class="level-item has-text-center">
+        <h1 class="title">Go build</h1>
+      </div>
+    </nav>
 
-      <div class="box">
-        <div class="container">
-          <div class="level">
-            <div id="did" class="file has-name level-item">
-              <label class="file-label">
+    <div class="box">
+      <div class="container">
+        <div class="level">
+          <div id="did" class="file has-name level-item">
+            <label class="file-label">
                 <input class="file-input" id="d2b" type="file" name="d2b" webkitdirectory>
                 <span class="file-cta">
                   <span class="file-icon">
@@ -44,23 +51,23 @@
                 </span>
                 <input class="file-name" id="pn" placeholder="Project Name...">
               </label>
-            </div>
+          </div>
 
-            <div class="makefile level-item">
-              <label>
+          <div class="makefile level-item">
+            <label>
                 <input id="gm" type="checkbox" name="gm" checked>
                 <span>Generate a goreleaser</span>
               </label>
-            </div>
-            <button class="button" id="bb" type="button" name="button">Build</button>
           </div>
+          <button class="button" id="bb" type="button" name="button">Build</button>
         </div>
       </div>
+    </div>
 
-      <div class="box">
-        <div id="gtd" class="container">
-          <div class="file has-name level-item">
-            <label class="file-label">
+    <div class="box">
+      <div id="gtd" class="container">
+        <div class="file has-name level-item">
+          <label class="file-label">
               <span class="file-cta">
                 <span class="file-label has-text-centered">
                   Github token
@@ -68,271 +75,268 @@
               </span>
               <input class="input" id="gt" placeholder="xxxxxxxxxxxxxxxxxxxxxxxx" required>
             </label>
-          </div>
-        </div>
-     </div>
-
-      <div class="box">
-        <div class="container">
-          <div class="level">
-            <div class="level-item">
-              <dl class="">
-                <dt>
-                  <a href="#"><span>GOOS</span></a>
-                </dt>
-                <dd>
-                  <ul>
-                    <li><input name="goos" type="checkbox" value="android" /><label>Android</label></li>
-                    <li><input name="goos" type="checkbox" value="darwin" /><label>Darwin</label></li>
-                    <li><input name="goos" type="checkbox" value="freebsd" /><label>Free BSD</label></li>
-                    <li><input name="goos" type="checkbox" value="linux" /><label>Linux</label></li>
-                    <li><input name="goos" type="checkbox" value="solaris" /><label>Solaris</label></li>
-                    <li><input name="goos" type="checkbox" value="windows" /><label>Windows</label></li>
-                  </ul>
-                </dd>
-              </dl>
-            </div>
-
-            <div class="level-item">
-              <dl class="">
-                <dt>
-                  <a href="#"><span>GOARCH</span></a>
-                </dt>
-                <dd>
-                  <div>
-                    <ul>
-                      <li><input name="goarch" type="checkbox" value="386" /><label>386</label></li>
-                      <li><input name="goarch" type="checkbox" value="amd64" /><label>AMD</label></li>
-                      <li><input name="goarch" type="checkbox" value="arm" /><label>ARM</label></li>
-                      <li><input name="goarch" type="checkbox" value="arm64" /><label>ARM64</label></li>
-                    </ul>
-                  </div>
-                </dd>
-              </dl>
-            </div>
-
-            <div class="level-item">
-              <dl>
-                <dt>
-                  <a href="#"><span>ARCHIVE</span></a>
-                </dt>
-                <dd>
-                  <div id="af">
-                    <ul>
-                      <li><input name="archive" type="checkbox" value="tar.gz" /><label>tar.gz</label></li>
-                      <li><input name="archive" type="checkbox" value="zip" /><label>zip</label><li>
-                      <li><input name="archive" type="checkbox" value="gzip" /><label>gzip</label></li>
-                    </ul>
-                  </div>
-                </dd>
-              </dl>
-            </div>
-
-          </div>
         </div>
       </div>
+    </div>
 
-      <div class="box">
-        <div class="container">
-          <div class="level gtag">
-            Git tag
-            <div class="level-item">
-              <label for="version">Version</label>
-              <div class="control">
-                <input class="input" type="text" name="version">
-              </div>
+    <div class="box">
+      <div class="container">
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <th><a href="#">GOOS</th></a>
+            <th><a href="#">GOARCH</th></a>
+          <th><a href="#">ARCHIVE</th></a>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input name="goos" type="checkbox" value="android" /><label>Android</label></td>
+            <td><input name="goarch" type="checkbox" value="386" /><label>386</label></td>
+            <td><input name="archive" type="checkbox" value="tar.gz" /><label>tar.gz</label></td>
+          </tr>
+          <tr>
+            <td><input name="goos" type="checkbox" value="darwin" /><label>Darwin</label></td>
+            <td><input name="goarch" type="checkbox" value="amd64" /><label>AMD</label></td>
+            <td><input name="archive" type="checkbox" value="zip" /><label>zip</label></td>
+          </tr>
+          <tr>
+            <td><input name="goos" type="checkbox" value="freebsd" /><label>Free BSD</label></td>
+            <td><input name="goarch" type="checkbox" value="arm" /><label>ARM</label></td>
+            <td><input name="archive" type="checkbox" value="gzip" /><label>gzip</label></td>
+          </tr>
+          <tr>
+            <td><input name="goos" type="checkbox" value="linux" /><label>Linux</label></td>
+            <td><input name="goarch" type="checkbox" value="arm64" /><label>ARM64</label></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><input name="goos" type="checkbox" value="solaris" /><label>Solaris</label></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><input name="goos" type="checkbox" value="windows" /><label>Windows</label></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="container">
+        <div class="level gtag">
+          Git tag
+          <div class="level-item">
+            <label for="version">Version</label>
+            <div class="control">
+              <input class="input" type="text" name="version">
             </div>
-            <div class="level-item">
-              <label for="tag_message">Message</label>
-              <div class="control">
-                <input class="input "type="text" name="tag_message">
-              </div>
+          </div>
+          <div class="level-item">
+            <label for="tag_message">Message</label>
+            <div class="control">
+              <input class="input " type="text" name="tag_message">
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="hero is-danger is-large has-text-left">
-        <div class="hero-body">
-          <div class="errors container" id="gcc_errors">
-            <h4 class="title is-1">Errors</h4>
-          </div>
-          <div id="gr_errors"> </div>
-       </div>
+    <div class="hero is-danger is-large has-text-left">
+      <div class="hero-body">
+        <div class="errors container" id="gcc_errors">
+          <h4 class="title is-1">Errors</h4>
+        </div>
+        <div id="gr_errors"> </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <script type="text/javascript">
-      const {dialog} = require('electron').remote;
-      const fs = require('fs');
+  <script type="text/javascript">
+    const {
+      dialog
+    } = require('electron').remote;
+    const fs = require('fs');
 
-      let cmd;
-      let combinaisons = {
-        "android": ["386", "amd64", "arm", "arm64"],
-        "darwin": ["amd64", "arm", "arm64"],
-        "dragonfly": ["amd64"],
-        "freebsd": ["386", "amd64"],
-        "linux": ["386", "amd64", "arm", "arm64", "ppc64le"],
-        "netbsd": ["386", "amd64", "arm"],
-        "openbsd": ["386", "amd64"],
-        "solaris": ["amd64"],
-        "windows": ["386", "amd64"]
-      };
-      let dir;
-      let elogs;
-      let git_token;
-      let logpath;
-      let logs;
-      let path;
-      let projectName;
-      let message;
-      let settings = {
+    let cmd;
+    let combinaisons = {
+      "android": ["386", "amd64", "arm", "arm64"],
+      "darwin": ["amd64", "arm", "arm64"],
+      "dragonfly": ["amd64"],
+      "freebsd": ["386", "amd64"],
+      "linux": ["386", "amd64", "arm", "arm64", "ppc64le"],
+      "netbsd": ["386", "amd64", "arm"],
+      "openbsd": ["386", "amd64"],
+      "solaris": ["amd64"],
+      "windows": ["386", "amd64"]
+    };
+    let dir;
+    let elogs;
+    let git_token;
+    let logpath;
+    let logs;
+    let path;
+    let projectName;
+    let message;
+    let settings = {
+      "name": "",
+      "path": "",
+      "build": {
+        'goos': [],
+        'goarch': []
+      },
+      "archive": {
+        "wanted": false,
+        "format": ""
+      }
+    };
+    let tag_message;
+    let tag_version;
+
+    $('#d2b').on('click', function(e) {
+      e.preventDefault();
+      path = dialog.showOpenDialog({
+        properties: ['openDirectory']
+      })
+      settings['path'] = path;
+    });
+
+    function combine(value) {
+        $("input[name='goos']").each(function() {
+          $(this).prop("disabled", false);
+        });
+
+        $("input[name='goarch']").each(function() {
+          $(this).prop("disabled", false);
+        });
+
+        let checkedOs = [];
+        $("input[name='goos']:checked").each(function() {
+          checkedOs.push($(this).val());
+        });
+
+        for (let i = 0, clen = checkedOs.length; i < clen; i++) {
+          $("input[name='goarch']").each(function() {
+            let name = $(this).val();
+            if (combinaisons[checkedOs[i]].indexOf(name) === -1) {
+              $(this).prop("disabled", true);
+            }
+          });
+        }
+
+        let checkedArch = [];
+        $("input[name='goarch']:checked").each(function() {
+          checkedArch.push($(this).val())
+        });
+
+        for (let i = 0, clen = checkedArch.length; i < clen; i++) {
+          $("input[name='goos']").each(function() {
+            let name = $(this).val();
+            if (combinaisons[name].indexOf(checkedArch[i]) === -1) {
+              $(this).prop("disabled", true);
+            }
+          });
+        }
+    }
+
+    $("input[name='goos']").click(function(e) {
+      combine(e.currentTarget.value);
+    });
+
+    $("input[name='goarch']").click(function(e) {
+      combine(e.currentTarget.value);
+    });
+
+    $("input[name='archive']").click(function() {
+      if ($(this).is(":checked")) {
+        $("input[name='archive']").prop("checked", false);
+        $(this).prop("checked", true);
+      }
+    });
+
+    $("#bb").click(function() {
+
+      settings = {
         "name": "",
         "path": "",
-        "build":{
-          'goos': [],
-          'goarch': []
+        "build": {
+          "goos": [],
+          "goarch": []
         },
-        "archive":{
+        "archive": {
           "wanted": false,
           "format": ""
         }
       };
-      let tag_message;
-      let tag_version;
 
-      function combine(value){
-
-        $("input[name='goos']").each(function(){
-          $(this).prop("disabled", false);
-        });
-
-        $("input[name='goarch']").each(function(){
-          $(this).prop("disabled", false);
-        });
-
-        if(Object.keys(combinaisons).indexOf(value) !== -1){
-          let checkedOs = [];
-          $("input[name='goos']:checked").each(function(){
-            checkedOs.push($(this).val());
-          });
-
-          for(let i = 0, clen = checkedOs.length; i < clen; i++){
-            $("input[name='goarch']").each(function(){
-              let name = $(this).val();
-              if(combinaisons[checkedOs[i]].indexOf(name) === -1){
-                  $(this).prop("disabled", true);
-              }
-            });
-          }
-        }
-
-        else{
-          let checkedArch = [];
-          $("input[name='goarch']:checked").each(function(){
-            checkedArch.push($(this).val())
-          });
-
-          for(let i = 0, clen = checkedArch.length; i < clen; i++){
-            $("input[name='goos']").each(function(){
-              let name = $(this).val();
-              if(combinaisons[name].indexOf(checkedArch[i]) === -1){
-                  $(this).prop("disabled", true);
-              }
-            });
-          }
-        }
+      logpath = path + '/logs'
+      if (!fs.existsSync(logpath)) {
+        shell.mkdir(logpath)
       }
 
-      $('#d2b').on('click', function(e){
-        e.preventDefault();
-        path = dialog.showOpenDialog({
-          properties: ['openDirectory']
-        })
-        settings['path'] = path;
-      });
-
-      $("input[name='goos']").click(function(e){
-        combine(e.currentTarget.value);
-      });
-
-      $("input[name='goarch']").click(function(e){
-        combine(e.currentTarget.value);
-      });
-
-      $("input[name='archive']").click(function(){
-        if($(this).is(":checked")){
-          $("input[name='archive']").prop("checked", false);
-          $(this).prop("checked", true);
-        }
-      });
-
-      $("#bb").click(function(){
-
-        settings = {"name":"","path":"","build":{ "goos":[],"goarch":[]},"archive":{"wanted": false,"format":""}};
-
-        logpath = path + '/logs'
-        if (!fs.existsSync(logpath)){
-          shell.mkdir(logpath)
-        }
-
-        if(!$("#gt").val()){
-          $("#gt").addClass("is-danger");console
+      if (!$("#gt").val()) {
+        if (process.env.GITHUB_TOKEN === "undefined") {
+          $("#gt").addClass("is-danger");
           $("#gtd").append("<p class='help is-danger'>The github token is required</p>");
-          return ;
+
+          return;
         }
-        else{
-            git_token = $("#gt").val();
-            process.env.GITHUB_TOKEN = git_token;
-        }
-
-        settings['name'] = ($("#pn").val()) ? $("#pn").val() : 'impala';
-        $("input[name='goos']:checked").each(function(){
-          settings['build']['goos'].push($(this).val());
-        });
-
-        $("input[name='goarch']:checked").each(function(){
-          settings['build']['goarch'].push($(this).val());
-        });
-
-        settings['archive']['format'] = $("input[name='archive']:checked").val();
-
-        if(settings['archive']['format'] !== 'undefined'){
-          settings['archive']['wanted'] = true;
-        }
-
-        makeGoreleaser(settings);
-
-        tag_message = $("input[name='tag_message']").val();
-        tag_version = $("input[name='version']").val();
-
-        elogs = path + "/logs/goreleaser_errors.log";
-        logs = path + "/logs/impala_log.log";
-
-        cmd = "cd " + path + " && git add . && git commit -m 'commit before release' "
-        cmd += "&& git tag -a " + tag_version + " -m '"  + tag_message + "' "
-        cmd += "&& goreleaser --rm-dist && git add . && git commit -m 'goreleaser builds' && git push"
-        shell.exec(cmd);
-      })
-
-      function printLogs(file){
-        errs = '<p class="subtitle">'
-        fs.readFile(file, 'utf8', function (err, data) {
-          //console.log(data);
-          if (err) {
-            return console.log('err: ' + err);
-          }
-          data = data.split('\n');
-          for(let i = 0, len = data.length; i < len; i++){
-            data[i] += '</p><pclass="subtitle">'
-            errs += data[i];
-          }
-          errs += '</p>';
-          $("#gr_errors").html(errs);
-        });
+      } else {
+        console.log('tok1: ' + process.env.GITHUB_TOKEN);
+        git_token = $("#gt").val();
+        process.env.GITHUB_TOKEN = git_token;
+        console.log('tk2: ' + process.env.GITHUB_TOKEN);
       }
-      
-    </script>
-  </body>
+
+      settings['name'] = ($("#pn").val()) ? $("#pn").val() : 'impala';
+      $("input[name='goos']:checked").each(function() {
+        settings['build']['goos'].push($(this).val());
+      });
+
+      $("input[name='goarch']:checked").each(function() {
+        settings['build']['goarch'].push($(this).val());
+      });
+
+      settings['archive']['format'] = $("input[name='archive']:checked").val();
+
+      if (settings['archive']['format'] !== 'undefined') {
+        settings['archive']['wanted'] = true;
+      }
+
+      makeGoreleaser(settings);
+
+      tag_message = $("input[name='tag_message']").val();
+      tag_version = $("input[name='version']").val();
+
+      elogs = path + "/logs/goreleaser_errors.log";
+      logs = path + "/logs/impala_log.log";
+
+      cmd = "cd " + path + " && git add . && git commit -m 'commit before release' "
+      cmd += "&& git tag -a " + tag_version + " -m '" + tag_message + "' "
+      cmd += "&& goreleaser --rm-dist && git add . && git commit -m 'goreleaser builds' && git push"
+      shell.exec(cmd);
+      printLogs(logs);
+    })
+
+    function printLogs(file) {
+      errs = '<p class="subtitle">'
+      fs.readFile(file, 'utf8', function(err, data) {
+        console.log(data);
+        if (err) {
+          return console.log('err: ' + err);
+        }
+        data = data.split('\n');
+        for (let i = 0, len = data.length; i < len; i++) {
+          data[i] += '</p><pclass="subtitle">'
+          errs += data[i];
+        }
+        errs += '</p>';
+        $("#gr_errors").html(errs);
+      });
+    }
+  </script>
+</body>
+
 </html>
-<!-- TODO: Log des erreurs, token non obilgatoire et goreleaser a dev -->
+<!-- TODO goreleaser a dev, changer dans le box en array goos goarch archive html  -->
