@@ -49,7 +49,7 @@
                     Select the directory ...
                   </span>
                 </span>
-                <input class="file-name" id="pn" placeholder="Project name(default: impala)">
+                <input class="file-name" id="pn" placeholder="Project name (default: impala)">
               </label>
           </div>
 
@@ -102,7 +102,6 @@
               <td><input name="goos" type="checkbox" value="freebsd" /><label for="goos">Free BSD</label></td>
               <td>
                 <label>ARM</label>
-              <!--  <input id="5" name="goarch" type="checkbox" value="arm" /><label for="goarch">5</label> -->
                 <input id="6" name="goarch" type="checkbox" value="arm" /><label for="goarch">6</label>
                 <input id="7" name="goarch" type="checkbox" value="arm" /><label for="goarch">7</label>
               </td>
@@ -165,13 +164,13 @@
 
     let cmd;
     let combinaisons = {
-      "android": ["386", "amd64", "arm", "arm64"],
-      "darwin": ["amd64", "arm", "arm64"],
+      "android": ["arm"],
+      "darwin": ["386", "amd64", "arm", "arm64"],
       "dragonfly": ["amd64"],
-      "freebsd": ["386", "amd64"],
-      "linux": ["386", "amd64", "arm", "arm64", "ppc64", "ppc64le"],
+      "freebsd": ["386", "amd64", "arm"],
+      "linux": ["386", "amd64", "arm", "arm64"],
       "netbsd": ["386", "amd64", "arm"],
-      "openbsd": ["386", "amd64"],
+      "openbsd": ["386", "amd64", "arm"],
       "solaris": ["amd64"],
       "windows": ["386", "amd64"]
     };
@@ -313,6 +312,8 @@
         settings['archive']['wanted'] = true;
       }
 
+      makeGoreleaser(settings);
+
       tag_version = "v" + $("input[name='version']").val();
       tag_message = $("input[name='tag_message']").val();
 
@@ -327,7 +328,6 @@
       cmd += "git tag -a " + tag_version + " -m '" + tag_message + "' "
       cmd += "&& goreleaser --rm-dist && git add . && git commit -m 'goreleaser builds' && git push"
 
-      makeGoreleaser(settings);
       shell.exec(cmd);
       //printLogs(logs);
     })
