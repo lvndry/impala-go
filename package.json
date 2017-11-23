@@ -1,7 +1,7 @@
 {
   "name": "impala",
   "version": "0.0.7",
-  "description": "\"Tool to build, test and release your go project\"",
+  "description": "\"Tool to build and release and share your go project\"",
   "author": "LVNDRY (Landry Monga)",
   "license": "ISC",
   "main": "main.js",
@@ -11,6 +11,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
     "pack-linux-ia32": "electron-packager . --package-manager=yarn --asar --overwrite --platform=linux --arch=ia32 --icon=assets/icon/impa_logo_64.png --prune=true --out=build",
     "pack-linux-x64": "electron-packager . --package-manager=yarn --asar --overwrite --platform=linux --arch=x64 --icon=assets/icon/impa_logo_64.png --prune=true --out=build",
     "pack-win32-ia32": "electron-packager . --package-manager=yarn --asar  --overwrite --platform=win32 --arch=ia32 --icon=assets/icon/impa_logo_64.ico --prune=true --out=build --version-string.ProductName='impala'",
