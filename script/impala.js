@@ -114,16 +114,24 @@ $("#bb").click(function() {
     }
   };
 
+  if(path === undefined){
+    $("#did").prepend("<div class='tile'><div class='tile is-parent is-vertical' id='fw'></div></div>")
+    $("#fw").prepend("<article class='tile is-child'><p class='subtitle is-danger'> Error: no directory selected </p></article>")
+    return ;
+  }
   settings['path'] = path;
 
   logpath = path + '/logs'
   shell.exec("cd " + path + " && git config credential.helper store");
 
   if (!$("#gt").val()) {
-    console.log(process.env.GITHUB_TOKEN);
+    console.log(process.env.GITHUB_TOKEN)
+    $("#lgt").prepend("<div class='tile'><div class='tile is-parent is-vertical' id='wt'></div></div>")
+    $("#wt").prepend("<article class='tile is-child is-danger'><p class='subtitle'> Warning: no token</p></article>")
   } else {
     git_token = $("#gt").val();
     process.env.GITHUB_TOKEN = git_token;
+    shell.env['GITHUB_TOKEN'] = git_token;
     shell.exec('export GITHUB_TOKEN=' + git_token);
   }
 
@@ -142,7 +150,7 @@ $("#bb").click(function() {
   });
 
   settings['archive']['format'] = $("input[name='archive']:checked").val();
-  if (settings['archive']['format'] !== 'undefined') {
+  if (settings['archive']['format'] != 'undefined') {
     settings['archive']['wanted'] = true;
   }
 
@@ -176,4 +184,3 @@ function printLogs(log) {
   errs += '</p>';
   $("#gr_errors").html(errs);
 }
-//TODO: Warngin when no token, warnong when no file
