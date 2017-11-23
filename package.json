@@ -1,6 +1,6 @@
 {
   "name": "impala",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "\"Tool to build, test and release your go project\"",
   "author": "LVNDRY (Landry Monga)",
   "license": "ISC",

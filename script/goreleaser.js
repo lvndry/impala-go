@@ -29,14 +29,14 @@ function makeGoreleaser(settings, callback=""){
         }
       }
 
-      cmd += "   ldflags: -s -w -X main.build={{.Version}} -X main.date={{.Date}}\n";
+      cmd += "   ldflags: -s -w -X main.build={{ .Version }} -X main.date={{ .Date }}\n";
 
       //Archive
       if(settings['archive']['wanted'] !== 'undefined'){
         cmd += "# Archive Customisation\n"
         cmd += "archive:\n"
         cmd += " format: " + settings['archive']['format'] + "\n";
-        cmd += " name_template: \"{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{.Arm }}{{ end }}\"\n"
+        cmd += " name_template: \"{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}\"\n"
 
         cmd += " format_overrides:\n"
         cmd += "   - goos: windows\n"
@@ -44,7 +44,7 @@ function makeGoreleaser(settings, callback=""){
 
         cmd += " replacements:\n"
         cmd += "   amd64: 64-bit\n"
-        cmd += "   386: 62-bit\n"
+        cmd += "   386: 32-bit\n"
         cmd += "   darwin: macOS\n"
 
         cmd += " files:\n"
@@ -62,6 +62,6 @@ function makeGoreleaser(settings, callback=""){
       cmd += "checksum:\n"
       cmd += " name_template: \"{{ .ProjectName }}_checksum.txt\""
       cmd += "' > " + settings['path']  + "/.goreleaser.yml"
-      console.log(cmd);
+      
       shell.exec(cmd);
 }
