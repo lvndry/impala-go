@@ -1,6 +1,4 @@
-const {
-  dialog
-} = require('electron').remote;
+const {dialog} = require('electron').remote;
 const fs = require('fs');
 
 let cmd;
@@ -39,14 +37,7 @@ let settings = {
 let tag_message;
 let tag_version;
 
-$('#d2b').on('click', function(e) {
-  e.preventDefault();
-  path = dialog.showOpenDialog({
-    properties: ['openDirectory']
-  });
-});
-
-function combine(value) {
+function combine() {
   $("input[name='goos']").each(function() {
     $(this).prop("disabled", false);
   });
@@ -84,12 +75,31 @@ function combine(value) {
   }
 }
 
+function printLogs(log) {
+  errs = '<p class="subtitle">'
+  log = log.split('\n');
+
+  for (let i = 0, len = log.length; i < len; i++) {
+    log[i] += '</p><pclass="subtitle">'
+    errs += log[i];
+  }
+  errs += '</p>';
+  $("#gr_errors").html(errs);
+}
+
+$('#d2b').on('click', function(e) {
+  e.preventDefault();
+  path = dialog.showOpenDialog({
+    properties: ['openDirectory']
+  });
+});
+
 $("input[name='goos']").click(function(e) {
-  combine(e.currentTarget.value);
+  combine();
 });
 
 $("input[name='goarch']").click(function(e) {
-  combine(e.currentTarget.value);
+  combine();
 });
 
 $("input[name='archive']").click(function() {
@@ -121,7 +131,6 @@ $("#bb").click(function() {
   }
   settings['path'] = path;
 
-  logpath = path + '/logs'
   shell.exec("cd " + path + " && git config credential.helper store");
 
   if (!$("#gt").val()) {
@@ -172,15 +181,3 @@ $("#bb").click(function() {
   logs = shell.exec(cmd);
   printLogs(logs);
 })
-
-function printLogs(log) {
-  errs = '<p class="subtitle">'
-  log = log.split('\n');
-
-  for (let i = 0, len = log.length; i < len; i++) {
-    log[i] += '</p><pclass="subtitle">'
-    errs += log[i];
-  }
-  errs += '</p>';
-  $("#gr_errors").html(errs);
-}

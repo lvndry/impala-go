@@ -1,4 +1,4 @@
-ar path = require('path')
+var path = require('path')
 var shell = require('shelljs')
 
 var main = path.join(__dirname, '../main.js');
